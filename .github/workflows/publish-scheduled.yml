@@ -1,0 +1,25 @@
+name: Publish scheduled blog posts
+on:
+  schedule:
+    - cron: "0 14 * * 1"   # Mondays 14:00 UTC (9 a.m. Eastern in winter)
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish posts that are due
+        run: python3 _scheduled/publish.py
+      - name: Commit and push
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "Scheduled publisher"
+            git config user.email "drsusan@drsusanbesman.com"
+            git add -A
+            git commit -m "Publish scheduled blog post(s)"
+            git push
+          else
+            echo "Nothing due today."
+          fi
