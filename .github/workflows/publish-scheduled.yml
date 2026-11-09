@@ -1,0 +1,27 @@
+name: Publish scheduled blog posts
+# Every Monday this publishes any post in _scheduled/posts.json whose date has
+# arrived. Netlify then puts the updated site live automatically.
+on:
+  schedule:
+    - cron: "15 14 * * 1"   # Mondays 14:15 UTC = 9:15 a.m. Eastern (10:15 a.m. in summer)
+  workflow_dispatch: {}      # lets you run it by hand from the Actions tab
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish posts that are due
+        run: python3 _scheduled/publish.py
+      - name: Commit and push
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "Scheduled publisher"
+            git config user.email "drsusan@drsusanbesman.com"
+            git add -A
+            git commit -m "Publish scheduled blog post"
+            git push
+          else
+            echo "Nothing due today."
+          fi
