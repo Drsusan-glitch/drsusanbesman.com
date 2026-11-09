@@ -9,7 +9,7 @@ To cancel a post: delete its entry from _scheduled/posts.json.
 To edit a post before it goes live: edit _scheduled/posts/<slug>.html.
 Test without changing anything: FAKE_DATE=2026-12-07 python3 _scheduled/publish.py --dry-run
 """
-import json, re, sys, os, xml.dom.minidom
+import json, re, sys, os, html, xml.dom.minidom
 from datetime import datetime, timezone, timedelta
 
 def add_post(c):
@@ -34,6 +34,10 @@ def add_post(c):
     s = tpl.replace(prev_title, title).replace(prev_desc, desc)
     s = s.replace(f'https://drsusanbesman.com/blog/{prev_slug}/', url)
     s = s.replace(f'assets/{prev_img}', f'assets/{img}')
+    # search-engine title (kept under 60 characters so Google shows it in full)
+    seo = html.escape(c.get('seo_title') or title, quote=False)
+    s = re.sub(r'<title>.*?</title>', f'<title>{seo}</title>', s, count=1)
+    s = re.sub(r'(property="og:title" content=")[^"]*', lambda m: m.group(1) + seo, s, count=1)
     s = re.sub(r'"datePublished":"[^"]*","dateModified":"[^"]*"', f'"datePublished":"{date_iso}","dateModified":"{date_iso}"', s)
     main = re.search(r'<main>.*?</main>', s, re.S).group(0)
     tail = main[main.index('<div class="med">'):]
@@ -96,6 +100,27 @@ def add_post(c):
     print('  published', slug, '| previous featured:', prev_slug, '| homepage cards:', len(cards[:2]) + 1)
 
 
+def add_reading(service, slug, title, limit=5):
+    """Put a link to a blog post at the top of a service page's "Helpful reading" list."""
+    path = f'services/{service}/index.html'
+    if not os.path.exists(path):
+        return
+    s = open(path).read()
+    if f'blog/{slug}/' in s:
+        return
+    li = f'<li><a href="../../blog/{slug}/">{title}</a></li>'
+    m = re.search(r'<h2>Helpful reading</h2><ul>(.*?)</ul>', s, re.S)
+    if m:
+        items = re.findall(r'<li>.*?</li>', m.group(1), re.S)
+        s = s.replace(m.group(0), '<h2>Helpful reading</h2><ul>' + ''.join([li] + items[:limit - 1]) + '</ul>', 1)
+    else:
+        anchor = '<div style="margin-top:56px"><div class="meet">'
+        if anchor not in s:
+            return
+        s = s.replace(anchor, f'<h2>Helpful reading</h2><ul>{li}</ul>' + anchor, 1)
+    open(path, 'w').write(s)
+
+
 def today_eastern():
     if os.environ.get('FAKE_DATE'):
         return os.environ['FAKE_DATE']
@@ -115,3 +140,6 @@ if __name__ == '__main__':
         print(' -', c['date'], c['slug'])
         if '--dry-run' not in sys.argv:
             add_post(c)
+            m = re.search(r'services/([^/]+)/', c.get('related_html', ''))
+            if m:
+                add_reading(m.group(1), c['slug'], c['title'])
