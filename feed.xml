@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/">
+<channel>
+  <title>The Journal · Dr. Susan Besman</title>
+  <link>https://drsusanbesman.com/blog/</link>
+  <atom:link href="https://drsusanbesman.com/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>Articles on divorce recovery, midlife identity, and rebuilding your life, from psychotherapist Dr. Susan Besman, Ph.D., LMFT.</description>
+  <language>en-us</language>
+  <lastBuildDate>Mon, 26 Oct 2026 09:00:00 -0400</lastBuildDate>
+  <image><url>https://drsusanbesman.com/assets/sb-emblem.png</url><title>The Journal · Dr. Susan Besman</title><link>https://drsusanbesman.com/blog/</link></image>
+  <item>
+    <title>How to Rebuild Your Life After Divorce at 50: Where to Start</title>
+    <link>https://drsusanbesman.com/blog/rebuild-life-after-divorce-at-50/</link>
+    <guid isPermaLink="true">https://drsusanbesman.com/blog/rebuild-life-after-divorce-at-50/</guid>
+    <pubDate>Tue, 20 Oct 2026 09:00:00 -0400</pubDate>
+    <dc:creator>Dr. Susan Besman, Ph.D., LMFT</dc:creator>
+    <description>A Boca Raton therapist who rebuilt after her own divorce shares practical first steps for women navigating divorce in midlife.</description>
+    <enclosure url="https://drsusanbesman.com/assets/blog-journey.jpg" type="image/jpeg" length="0"/>
+    <media:content url="https://drsusanbesman.com/assets/blog-journey.jpg" medium="image"/>
+  </item>
+  <item>
+    <title>“Who Am I Now?” Rediscovering Your Identity in Midlife</title>
+    <link>https://drsusanbesman.com/blog/who-am-i-now-midlife-identity/</link>
+    <guid isPermaLink="true">https://drsusanbesman.com/blog/who-am-i-now-midlife-identity/</guid>
+    <pubDate>Tue, 20 Oct 2026 08:00:00 -0400</pubDate>
+    <dc:creator>Dr. Susan Besman, Ph.D., LMFT</dc:creator>
+    <description>Why so many women feel lost in midlife, and practical ways to rediscover who you are after divorce, an empty nest, or a career change.</description>
+    <enclosure url="https://drsusanbesman.com/assets/blog-selfcare.jpg" type="image/jpeg" length="0"/>
+    <media:content url="https://drsusanbesman.com/assets/blog-selfcare.jpg" medium="image"/>
+  </item>
+  <item>
+    <title>Strength Training for Women Over 50: Why Muscle Matters More Than Ever</title>
+    <link>https://drsusanbesman.com/blog/strength-training-women-over-50/</link>
+    <guid isPermaLink="true">https://drsusanbesman.com/blog/strength-training-women-over-50/</guid>
+    <pubDate>Tue, 20 Oct 2026 07:00:00 -0400</pubDate>
+    <dc:creator>Dr. Susan Besman, Ph.D., LMFT</dc:creator>
+    <description>Why strength training is one of the best things women can do for their health and confidence after 50, and how to start safely.</description>
+    <enclosure url="https://drsusanbesman.com/assets/blog-strength.jpg" type="image/jpeg" length="0"/>
+    <media:content url="https://drsusanbesman.com/assets/blog-strength.jpg" medium="image"/>
+  </item>
+</channel>
+</rss>

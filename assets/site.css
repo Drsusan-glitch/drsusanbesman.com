@@ -1,0 +1,146 @@
+/* ==========================================================================
+   site.css — shared polish & interaction layer for drsusanbesman.com
+   Loaded on every page AFTER the page's own <style> block, so it refines
+   the existing design without replacing it. Safe to remove: the site falls
+   back to its original look.
+   ========================================================================== */
+
+/* ---------- Accessibility: readable contrast (WCAG AA) ---------- */
+.pale .eyebrow,.card .eyebrow{color:#536B31}
+.small,.note{color:#5A6654}
+.hero p,.cta p{color:#EEF3EA}
+.crumbs{color:#E6ECDF}.crumbs a{color:#FAF7EE}
+
+/* Keyboard focus that's easy to see */
+:focus-visible{outline:3px solid #E5B83A;outline-offset:3px;border-radius:6px}
+.btn:focus-visible{outline-color:#2F4436}
+
+/* Screen-reader-only text */
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* "Skip to content" link, visible only when tabbed to */
+.skip{position:absolute;left:12px;top:-60px;z-index:100;background:#2F4436;color:#FAF7EE!important;padding:12px 20px;border-radius:100px;font-weight:700;text-decoration:none;transition:top .2s}
+.skip:focus{top:12px}
+
+/* ---------- Smooth in-page scrolling ---------- */
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+[id]{scroll-margin-top:96px}
+
+/* ---------- Sticky header that tightens on scroll ---------- */
+header.site{position:sticky;top:0;z-index:50;transition:padding .25s ease,box-shadow .25s ease,background-color .25s ease}
+header.site .brand img{transition:height .25s ease}
+header.site.scrolled{padding-top:10px;padding-bottom:10px;background:rgba(250,247,238,.96);box-shadow:0 1px 0 #E2E6D2,0 8px 24px rgba(47,68,54,.08)}
+@supports (backdrop-filter:blur(8px)){header.site.scrolled{background:rgba(250,247,238,.88);backdrop-filter:saturate(1.4) blur(10px)}}
+header.site.scrolled .brand img{height:46px}
+
+/* Nav links: animated underline */
+nav.main a:not(.btn){position:relative;padding:4px 0}
+nav.main a:not(.btn):after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:#E5B83A;transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+nav.main a:not(.btn):hover:after{transform:scaleX(1)}
+nav.main a[aria-current]{border-bottom:0!important}
+nav.main a[aria-current]:after{transform:scaleX(1)}
+
+/* Phone number in the header (added by site.js) */
+.nav-phone{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.nav-phone svg{width:16px;height:16px;flex:none}
+@media (min-width:1301px){header.site{flex-wrap:nowrap}}
+@media (min-width:1301px) and (max-width:1479px){nav.main .nav-phone{display:none}}
+
+/* Mobile menu button (added by site.js) */
+.nav-toggle{display:none}
+
+@media (max-width:1300px){
+  header.site{flex-wrap:nowrap}
+  .brand img{height:46px}
+  .brand small{font-size:9.5px;letter-spacing:.18em}
+  .js .nav-toggle{display:inline-flex;align-items:center;gap:8px;flex:none;font:inherit;font-weight:700;font-size:15px;color:#2F4436;background:#FFFDF6;border:1px solid #CFD6BE;border-radius:100px;padding:10px 16px;cursor:pointer}
+  .nav-toggle .bars{position:relative;width:18px;height:12px}
+  .nav-toggle .bars i{position:absolute;left:0;right:0;height:2px;border-radius:2px;background:currentColor;transition:transform .25s ease,opacity .2s ease,top .25s ease}
+  .nav-toggle .bars i:nth-child(1){top:0}.nav-toggle .bars i:nth-child(2){top:5px}.nav-toggle .bars i:nth-child(3){top:10px}
+  .nav-toggle[aria-expanded="true"] .bars i:nth-child(1){top:5px;transform:rotate(45deg)}
+  .nav-toggle[aria-expanded="true"] .bars i:nth-child(2){opacity:0}
+  .nav-toggle[aria-expanded="true"] .bars i:nth-child(3){top:5px;transform:rotate(-45deg)}
+
+  .js nav.main{position:absolute;top:100%;left:0;right:0;flex-direction:column;flex-wrap:nowrap;align-items:stretch;gap:0;
+    background:#FAF7EE;padding:6px clamp(20px,5vw,64px) 24px;box-shadow:0 18px 30px rgba(47,68,54,.14);border-top:1px solid #E2E6D2;
+    max-height:calc(100vh - 80px);overflow:auto;
+    opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .2s ease,transform .2s ease,visibility 0s linear .2s}
+  .js nav.main.open{opacity:1;visibility:visible;transform:none;transition:opacity .2s ease,transform .2s ease,visibility 0s}
+  .js nav.main a:not(.btn){font-size:18px;padding:15px 2px;border-bottom:1px solid #E2E6D2}
+  .js nav.main a:not(.btn):after{display:none}
+  .js nav.main a[aria-current]{color:#2F4436;font-weight:800}
+  .js nav.main a.btn{margin-top:20px;text-align:center;padding:15px 24px;font-size:16px}
+  .js nav.main .nav-phone{font-size:18px}
+  body.menu-open .mcta{opacity:0;pointer-events:none}
+}
+@media (max-width:600px){
+  header.site{gap:12px;padding-top:12px;padding-bottom:12px}
+  .brand{gap:10px}.brand img{height:40px}
+  .brand b{font-size:18px;letter-spacing:1px}
+  .brand small{font-size:8.5px;letter-spacing:.1em;line-height:1.35;margin-top:4px}
+  header.site.scrolled .brand small{display:none}
+  header.site.scrolled .brand img{height:36px}
+  .js .nav-toggle{padding:9px 13px;font-size:14px}
+}
+
+/* ---------- Buttons & links: tactile feedback ---------- */
+.btn{transition:background-color .2s ease,transform .2s ease,box-shadow .2s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(47,68,54,.18)}
+.btn:active{transform:translateY(0);box-shadow:none}
+.btn[disabled]{opacity:.7;cursor:progress;transform:none;box-shadow:none}
+.ghost,.more{transition:color .2s ease,border-color .2s ease}
+.more .arr,.ghost .arr{display:inline-block;transition:transform .2s ease}
+
+/* Clickable cards lift on hover */
+a.card{transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+a.card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(47,68,54,.13);border-color:#CFD6BE}
+a.card:hover .more{border-color:#4F6F5A}
+a.card:hover .more .arr,.more:hover .arr,.ghost:hover .arr{transform:translateX(4px)}
+a.card img{transition:filter .4s ease}
+a.card:hover img{filter:saturate(1.08) brightness(1.03)}
+
+/* REBUILD letters */
+.pills div{transition:transform .25s ease,box-shadow .25s ease,background-color .25s ease}
+.pills div:hover{transform:translateY(-4px);background:#fff;box-shadow:0 12px 26px rgba(47,68,54,.12)}
+
+/* ---------- FAQ accordion ---------- */
+.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:4px 0}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"";flex:none;width:30px;height:30px;border-radius:50%;border:1px solid #CFD6BE;
+  background:linear-gradient(#4F6F5A,#4F6F5A) center/12px 2px no-repeat,linear-gradient(#4F6F5A,#4F6F5A) center/2px 12px no-repeat;
+  transition:transform .3s ease,background-color .3s ease,border-color .3s ease}
+.faq summary:hover:after{border-color:#E5B83A}
+.faq details[open] summary:after{transform:rotate(45deg);background-color:#E5B83A;border-color:#E5B83A}
+@media (prefers-reduced-motion:no-preference){.faq details[open]>*:not(summary){animation:faqIn .35s ease both}}
+@keyframes faqIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+
+/* ---------- Credentials strip under the hero ---------- */
+.trust{background:#2F4436;color:#E6ECDF;font-size:15px;font-weight:600}
+.trust ul{list-style:none;margin:0 auto;padding:18px clamp(20px,5vw,48px);max-width:1120px;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 30px}
+.trust li{margin:0;display:flex;align-items:center;gap:9px}
+.trust svg{width:18px;height:18px;color:#F2CF5B;flex:none}
+
+/* ---------- Hero video pause control (added by site.js) ---------- */
+.vctl{position:absolute;right:clamp(14px,3vw,28px);bottom:clamp(14px,3vw,28px);z-index:2;width:44px;height:44px;border-radius:50%;
+  border:1px solid rgba(250,247,238,.5);background:rgba(47,68,54,.45);color:#FAF7EE;cursor:pointer;display:grid;place-items:center;transition:background-color .2s ease}
+.vctl:hover{background:rgba(47,68,54,.75)}
+.vctl svg{width:16px;height:16px}
+@media (prefers-reduced-motion:reduce){.vctl{display:none}}
+@media (max-width:720px){.vctl{bottom:auto;top:14px}}
+
+/* ---------- Gentle reveal on scroll (only when JS runs & motion is OK) ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+  .rv.in{opacity:1;transform:none}
+  .vin>*{animation:heroIn .9s cubic-bezier(.2,.7,.2,1) both}
+  .vin>*:nth-child(2){animation-delay:.08s}.vin>*:nth-child(3){animation-delay:.16s}
+  .vin>*:nth-child(4){animation-delay:.24s}.vin>*:nth-child(5){animation-delay:.32s}
+}
+@keyframes heroIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* ---------- Mobile booking bar: smoother ---------- */
+.mcta{transition:opacity .25s ease,transform .25s ease}
+.mcta.hide{opacity:0;transform:translateY(20px);pointer-events:none}
+
+/* ---------- Print: hide chrome ---------- */
+@media print{header.site,.mcta,.cta,.vctl,.trust,nav.main,footer .links{display:none!important}.rv{opacity:1!important;transform:none!important}}

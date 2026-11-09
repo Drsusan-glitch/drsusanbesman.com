@@ -1,0 +1,66 @@
+# Netlify settings for drsusanbesman.com
+[build]
+  publish = "."
+
+# Old domain → new domain (permanent)
+[[redirects]]
+  from = "https://drsusanalbinder.com/*"
+  to = "https://drsusanbesman.com/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://www.drsusanalbinder.com/*"
+  to = "https://drsusanbesman.com/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "http://drsusanalbinder.com/*"
+  to = "https://drsusanbesman.com/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "http://www.drsusanalbinder.com/*"
+  to = "https://drsusanbesman.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/privacy-policy"
+  to = "/privacy/"
+  status = 301
+[[redirects]]
+  from = "/contact"
+  to = "/book/"
+  status = 301
+[[redirects]]
+  from = "/contact-us"
+  to = "/book/"
+  status = 301
+[[redirects]]
+  from = "/about-us"
+  to = "/about/"
+  status = 301
+
+[[redirects]]
+  from = "/services/divorce-recovery-co-parenting/*"
+  to = "/services/divorce-recovery-therapy/"
+  status = 301
+[[redirects]]
+  from = "/services/divorce-recovery-co-parenting"
+  to = "/services/divorce-recovery-therapy/"
+  status = 301
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Short link to the free guide (used in text messages and social posts)
+[[redirects]]
+  from = "/guide"
+  to = "/assets/rebuilding-after-divorce-guide.pdf"
+  status = 302
+[[redirects]]
+  from = "/guide/"
+  to = "/assets/rebuilding-after-divorce-guide.pdf"
+  status = 302
