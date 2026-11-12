@@ -63,7 +63,7 @@ def add_post(c):
 
     # ---- homepage journal: newest 3 ----
     h = open('index.html').read()
-    sec = re.search(r'(<div class="eyebrow">The Journal</div>.*?<div class="cards">)(.*?)(</div>\s*<div class="soon")', h, re.S)
+    sec = re.search(r'(<div class="eyebrow">The Journal</div>.*?<div class="cards">)(.*?)(</div>\s*(?:<div class="soon"|</div>\s*</section>))', h, re.S)
     cards = re.findall(r'<a class="card" href="blog/.*?</a>', sec.group(2), re.S)
     newcard = (f'<a class="card" href="blog/{slug}/"><img src="assets/{img}" alt="" width="600" height="400" loading="lazy"><div class="eyebrow" style="margin-bottom:8px">{cat}</div>'
                f'<h3>{title}</h3><span class="more">Read article →</span></a>')

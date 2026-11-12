@@ -130,8 +130,8 @@ a.card:hover img{filter:saturate(1.08) brightness(1.03)}
 
 /* ---------- Gentle reveal on scroll (only when JS runs & motion is OK) ---------- */
 @media (prefers-reduced-motion:no-preference){
-  .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
-  .rv.in{opacity:1;transform:none}
+  .rv{transform:translateY(10px);transition:transform .5s ease;transition-delay:var(--d,0s)}
+  .rv.in{transform:none}
   .vin>*{animation:heroIn .9s cubic-bezier(.2,.7,.2,1) both}
   .vin>*:nth-child(2){animation-delay:.08s}.vin>*:nth-child(3){animation-delay:.16s}
   .vin>*:nth-child(4){animation-delay:.24s}.vin>*:nth-child(5){animation-delay:.32s}
@@ -144,3 +144,6 @@ a.card:hover img{filter:saturate(1.08) brightness(1.03)}
 
 /* ---------- Print: hide chrome ---------- */
 @media print{header.site,.mcta,.cta,.vctl,.trust,nav.main,footer .links{display:none!important}.rv{opacity:1!important;transform:none!important}}
+
+/* Card photos keep their 3:2 shape (the HTML height attribute was stretching them) */
+.card img{height:auto}
