@@ -2,6 +2,18 @@
 [build]
   publish = "."
 
+# www → non-www (one address for Google; matches the canonical tags)
+[[redirects]]
+  from = "https://www.drsusanbesman.com/*"
+  to = "https://drsusanbesman.com/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "http://www.drsusanbesman.com/*"
+  to = "https://drsusanbesman.com/:splat"
+  status = 301
+  force = true
+
 # Old domain → new domain (permanent)
 [[redirects]]
   from = "https://drsusanalbinder.com/*"

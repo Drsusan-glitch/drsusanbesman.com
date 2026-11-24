@@ -16,6 +16,7 @@ def add_post(c):
 
     slug, title, desc, sub = c['slug'], c['title'], c['desc'], c['sub']
     img, iw, ih, cat = c['img'], c['img_w'], c['img_h'], c['category']
+    img_alt = html.escape(c.get('img_alt', ''), quote=True)  # describes the post image for screen readers
     d = datetime.strptime(c['date'], '%Y-%m-%d')
     date_iso, date_h = c['date'], d.strftime('%B %-d, %Y')
     body = open(c['body']).read().strip()
@@ -43,7 +44,7 @@ def add_post(c):
     tail = main[main.index('<div class="med">'):]
     hero = ('<main>\n<section class="hero"><div class="wrap narrow"><div class="crumbs"><a href="../../">Home</a> / <a href="../../blog/">Blog</a> / ' + cat + '</div>'
             f'<div class="eyebrow">{cat}</div><h1>{title}</h1><p>{sub}</p><p class="post-meta" style="font-size:15px;margin:0">By Dr. Susan Besman, Ph.D., LMFT · {date_h}</p></div></section>\n'
-            f'<section class="section"><article class="post wrap narrow"><img class="postimg" src="../../assets/{img}" alt="" width="{iw}" height="{ih}">')
+            f'<section class="section"><article class="post wrap narrow"><img class="postimg" src="../../assets/{img}" alt="{img_alt}" width="{iw}" height="{ih}">')
     s = s.replace(main, hero + body + tail)
     if c.get('related_html'):  # swap the "Related service" box
         s = re.sub(r'<div class="med">.*?</div>', '<div class="med">' + c['related_html'] + '</div>', s, count=1, flags=re.S)
