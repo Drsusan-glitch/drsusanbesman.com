@@ -188,3 +188,15 @@
     }
   });
 })();
+
+/* ---------- Framed intro video: big play button ---------- */
+(function () {
+  document.querySelectorAll('.vframe').forEach(function (f) {
+    var v = f.querySelector('video'), b = f.querySelector('.vplay');
+    if (!v || !b) return;
+    v.controls = false; // clean look until it plays (controls stay on if this script doesn't run)
+    b.addEventListener('click', function () { v.play(); });
+    v.addEventListener('play', function () { f.classList.add('playing'); v.controls = true; });
+    v.addEventListener('ended', function () { f.classList.remove('playing'); v.controls = false; });
+  });
+})();
